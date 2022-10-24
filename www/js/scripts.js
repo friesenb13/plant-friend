@@ -5,9 +5,20 @@ var app = new Framework7({
 });
 var mainView = app.views.create('.view-main')
 
+
+//water level thresholds
 var waterlevel = 20; //starting level
 var nowater = 0;
 var drowning = 40;
+//nutrient levels
+
+var nutrientlevel= 30;
+var nonutrient=0;
+var full=40;
+
+//trim
+// var neardeath =false;
+var trimmed=false;
 
 var neardeath = false; //plant starts healthy
 
@@ -19,29 +30,57 @@ function dryout(){
 }
 dryout();
 
-var nutrientlevel= 20;
-var nonutrient=0;
-var full=40;
+
 
 function nutrients(){
-  nutrientlevel --;
+  nutrientlevel --; //over time it will go down
   console.log(nutrientlevel)
   checkhealth();
-  var watertimer= setTimeout(nutrients,500);
+  var foodtimer= setTimeout(nutrients,500);
 }
 nutrients();
 
 function checkhealth(){
-  if(waterlevel <= nowater){
+  if(waterlevel <= nowater || waterlevel >=drowning || nutrientlevel <= nonutrient){
     neardeath=true;
     console.log("help!")
     $("#plant path").css("fill", "chocolate")
+  } 
+
+  if (neardeath && waterlevel > nowater && nutrientlevel > nonutrient){
+    $("#plant path").css("fill", "#568B62")
+    neardeath=false;
+    setTimeout(function(){
+      $("#trim").fadeIn();
+      trimmed=false;
+    }, 5000)
   }
-  if(nutrientlevel <= nonutrient){
-    neardeath=true;
-    console.log("hungry")
-  }
+  
 }
+
+//event listeners
+
+$("#water-me").on("click", function() { //anonymous callback function
+
+  waterlevel +=20;
+  $("#water").fadeIn().delay(3000).fadeOut();
+  
+
+})
+$("#feed-me").on("click", function() { //anonymous callback function
+
+  nutrientlevel +=20;
+  $("#food").fadeIn().delay(3000).fadeOut();
+  
+
+})
+
+//trim
+$("#trim-me").on("click", function(){
+  trimmed=true;
+  $("#scissors").fadeIn().delay(2000).fadeOut();
+  $("#trim").fadeOut();
+})
 
 
 // by default:
