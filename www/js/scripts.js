@@ -28,7 +28,7 @@ function dryout(){
   checkhealth();
   var watertimer = setTimeout(dryout,500);
 }
-dryout();
+// dryout();
 
 
 
@@ -38,7 +38,7 @@ function nutrients(){
   checkhealth();
   var foodtimer= setTimeout(nutrients,500);
 }
-nutrients();
+// nutrients();
 
 function checkhealth(){
   if(waterlevel <= nowater || waterlevel >=drowning || nutrientlevel <= nonutrient){
@@ -81,6 +81,13 @@ $("#trim-me").on("click", function(){
   $("#scissors").fadeIn().delay(2000).fadeOut();
   $("#trim").fadeOut();
 })
+
+//quotes array
+
+var motivation = ["I'm worth it", "You can do this", "Be leaf in yourself", "You grow, girl", "I'll be planted right here"];
+var indexNum = Math.floor(Math.random()*motivation.length);
+console.log(indexNum);
+$("#plant-quote").text(motivation[indexNum])
 
 
 // by default:
