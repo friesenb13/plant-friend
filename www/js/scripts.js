@@ -83,11 +83,21 @@ $("#trim-me").on("click", function(){
 })
 
 //quotes array
-
-var motivation = ["I'm worth it", "You can do this", "Be leaf in yourself", "You grow, girl", "I'll be planted right here"];
+//when panel opens it displays a new quote everytime
+$(".panel").on("panel:open", function(){
+  var motivation = ["I'm worth it", "You can do this", "Be leaf in yourself", "You grow, girl", "I'll be planted right here"];
 var indexNum = Math.floor(Math.random()*motivation.length);
 console.log(indexNum);
 $("#plant-quote").text(motivation[indexNum])
+})
+
+//updating plant name
+$("#name-input").on("change", function() {
+  console.log("name changed")
+  var plantname =$(this).val();
+  $(".name-display").text(plantname);
+})
+
 
 
 // by default:
